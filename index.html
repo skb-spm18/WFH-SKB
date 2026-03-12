@@ -9,18 +9,15 @@
     
     <style>
         body { font-family: 'Sarabun', sans-serif; }
-        .bg-pastel-primary { background-color: #fce7f3; }
         .bg-pastel-btn { background-color: #f472b6; }
         .bg-pastel-btn:hover { background-color: #ec4899; }
-        .text-pastel-dark { color: #831843; }
-        .border-pastel { border-color: #fbcfe8; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center py-8 px-4 bg-pink-50">
 
-    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 border-pink-100">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden border-4 border-pink-100 relative">
         
-        <!-- Header with Logo (Updated) -->
+        <!-- Header with Logo -->
         <div class="bg-gradient-to-r from-pink-100 to-rose-100 p-6 text-center border-b border-pink-200">
             <div class="flex justify-center mb-3">
                 <img src="https://lh3.googleusercontent.com/d/1man6nxO40U4rp61zCfAIqXqRPicruA5F=w150-h150" 
@@ -35,12 +32,8 @@
         <!-- Real-time Clock -->
         <div class="bg-pink-50 p-4 text-center border-b border-pink-100">
             <p class="text-pink-400 text-xs uppercase tracking-wide font-semibold">เวลาปัจจุบัน (Real-time)</p>
-            <div id="realtime-clock" class="text-3xl font-bold text-pink-700 mt-1 font-mono">
-                00:00:00
-            </div>
-            <div id="realtime-date" class="text-gray-500 text-sm mt-1">
-                -
-            </div>
+            <div id="realtime-clock" class="text-3xl font-bold text-pink-700 mt-1 font-mono">00:00:00</div>
+            <div id="realtime-date" class="text-gray-500 text-sm mt-1">-</div>
             <p class="text-xs text-pink-300 mt-2 font-medium">* เวลาถูกกำหนดโดยระบบ ไม่สามารถแก้ไขได้</p>
         </div>
 
@@ -50,19 +43,19 @@
             <div>
                 <label class="block text-sm font-medium text-pink-800 mb-1">ชื่อ</label>
                 <input type="text" id="firstname" required placeholder="ระบุชื่อจริง" 
-                    class="w-full px-4 py-2 border border-pink-200 rounded-xl focus:ring-2 focus:ring-pink-400 focus:border-pink-400 outline-none transition bg-pink-50/50">
+                    class="w-full px-4 py-2 border border-pink-200 rounded-xl focus:ring-2 focus:ring-pink-400 outline-none bg-pink-50/50">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-pink-800 mb-1">นามสกุล</label>
                 <input type="text" id="lastname" required placeholder="ระบุนามสกุล" 
-                    class="w-full px-4 py-2 border border-pink-200 rounded-xl focus:ring-2 focus:ring-pink-400 focus:border-pink-400 outline-none transition bg-pink-50/50">
+                    class="w-full px-4 py-2 border border-pink-200 rounded-xl focus:ring-2 focus:ring-pink-400 outline-none bg-pink-50/50">
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-pink-800 mb-1">หมวด / กลุ่มสาระฯ / ฝ่าย</label>
                 <select id="department" required 
-                    class="w-full px-4 py-2 border border-pink-200 rounded-xl focus:ring-2 focus:ring-pink-400 focus:border-pink-400 outline-none transition bg-white">
+                    class="w-full px-4 py-2 border border-pink-200 rounded-xl focus:ring-2 focus:ring-pink-400 outline-none bg-white">
                     <option value="" disabled selected>-- กรุณาเลือกหมวดหมู่ --</option>
                     <option value="วิทยาศาสตร์">วิทยาศาสตร์</option>
                     <option value="คณิตศาสตร์">คณิตศาสตร์</option>
@@ -79,8 +72,16 @@
                 </select>
             </div>
 
+            <!-- Location Permission Notice -->
+            <div class="bg-pink-50 border border-pink-200 rounded-xl p-3 flex items-start gap-2 text-xs text-pink-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <p>ระบบจะขอเข้าถึงตำแหน่งของคุณเพื่อแสดงพิกัดละติจูด/ลองจิจูด หลังจากกดเช็คอิน</p>
+            </div>
+
             <button type="submit" id="submitBtn" 
-                class="w-full bg-pink-400 hover:bg-pink-500 text-white font-bold py-3 rounded-xl shadow-lg transform active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-4">
+                class="w-full bg-pastel-btn hover:bg-pink-500 text-white font-bold py-3 rounded-xl shadow-lg transform active:scale-95 transition duration-200 flex justify-center items-center gap-2 mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -89,34 +90,69 @@
             </button>
         </form>
 
-        <!-- Result Area -->
+        <!-- Result Area (Hidden by default) -->
         <div id="resultArea" class="hidden bg-pink-50 border-t border-pink-200 p-6 text-center">
-            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-pink-100 text-pink-500 mb-3 animate-bounce">
+            <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-pink-100 text-pink-500 mb-3">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
             </div>
-            <h3 class="text-pink-800 font-bold text-lg mb-2">บันทึกข้อมูลสำเร็จ</h3>
-            <p id="successMessage" class="text-gray-700 text-sm leading-relaxed whitespace-pre-line bg-white p-3 rounded-lg border border-pink-100 shadow-sm">
+            <h3 class="text-pink-800 font-bold text-lg mb-2">✅ บันทึกข้อมูลสำเร็จ</h3>
+            
+            <!-- Success Message -->
+            <p id="successMessage" class="text-gray-700 text-sm leading-relaxed whitespace-pre-line bg-white p-4 rounded-xl border border-pink-100 shadow-sm mb-4">
             </p>
+            
+            <!-- Coordinates Display Box -->
+            <div id="coordinatesBox" class="bg-white border-2 border-dashed border-pink-300 rounded-xl p-4 text-left">
+                <p class="text-xs text-pink-500 font-semibold mb-2 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    พิกัดตำแหน่งของคุณ
+                </p>
+                <div class="space-y-2 text-sm">
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-500">ละติจูด (Latitude):</span>
+                        <span id="latValue" class="font-mono font-semibold text-pink-700">-</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-500">ลองจิจูด (Longitude):</span>
+                        <span id="lngValue" class="font-mono font-semibold text-pink-700">-</span>
+                    </div>
+                    <div id="accuracyRow" class="flex justify-between items-center text-xs text-gray-400">
+                        <span>ความแม่นยำ:</span>
+                        <span id="accuracyValue">-</span>
+                    </div>
+                </div>
+                <!-- Google Maps Link (Optional) -->
+                <a id="mapsLink" href="#" target="_blank" class="inline-flex items-center gap-1 mt-3 text-xs text-pink-500 hover:text-pink-700 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    เปิดใน Google Maps
+                </a>
+            </div>
+
             <button onclick="location.reload()" class="mt-4 text-pink-500 text-sm font-semibold hover:text-pink-700 transition">
                 ลงเวลาอีกครั้ง
             </button>
         </div>
 
         <!-- Loading Overlay -->
-        <div id="loadingOverlay" class="hidden absolute inset-0 bg-white/80 flex items-center justify-center z-10">
-            <div class="flex flex-col items-center">
-                <div class="animate-spin rounded-full h-10 w-10 border-4 border-pink-300 border-t-pink-600 mb-2"></div>
-                <span class="text-pink-600 text-sm font-medium">กำลังบันทึกข้อมูล...</span>
-            </div>
+        <div id="loadingOverlay" class="hidden absolute inset-0 bg-white/90 flex flex-col items-center justify-center z-10 rounded-3xl">
+            <div class="animate-spin rounded-full h-12 w-12 border-4 border-pink-300 border-t-pink-600 mb-3"></div>
+            <span id="loadingText" class="text-pink-600 text-sm font-medium">กำลังบันทึกข้อมูล...</span>
+            <span id="locationText" class="text-pink-400 text-xs mt-1">กำลังระบุตำแหน่ง...</span>
         </div>
 
     </div>
 
     <script>
+        // ⚠️ วางลิงก์ Web App URL ของคุณที่นี่
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzf_TVZO5KiG8ycTJCixlDlLyyfa95NKmFG_e76HGmHrIShO0IBuuP-rl5CcdaF-d9q/exec';
 
+        // 1. Real-time Clock
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -127,30 +163,85 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // 2. Get Geolocation Promise
+        function getCurrentLocation() {
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject(new Error('เบราว์เซอร์ไม่รองรับการระบุตำแหน่ง'));
+                    return;
+                }
+                
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        resolve({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                            accuracy: position.coords.accuracy
+                        });
+                    },
+                    (error) => {
+                        reject(error);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    }
+                );
+            });
+        }
+
+        // 3. Form Submission
         document.getElementById('checkinForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             const btn = document.getElementById('submitBtn');
             const loading = document.getElementById('loadingOverlay');
+            const loadingText = document.getElementById('loadingText');
+            const locationText = document.getElementById('locationText');
             const resultArea = document.getElementById('resultArea');
             
+            // UI: Loading State
             btn.disabled = true;
             btn.classList.add('opacity-75', 'cursor-not-allowed');
             loading.classList.remove('hidden');
+            loadingText.innerText = 'กำลังบันทึกข้อมูล...';
+            locationText.innerText = 'กำลังระบุตำแหน่ง...';
 
+            // Get Form Data
+            const firstname = document.getElementById('firstname').value;
+            const lastname = document.getElementById('lastname').value;
+            const department = document.getElementById('department').value;
             const now = new Date();
             const checkInTime = now.toLocaleString('th-TH');
-            let locationText = "สถานที่พำนัก (Work From Home)";
-            
+
+            let locationData = null;
+            let locationError = null;
+
+            // Try to get location
+            try {
+                locationData = await getCurrentLocation();
+                locationText.innerText = '✓ ระบุตำแหน่งสำเร็จ';
+            } catch (error) {
+                locationError = error.message || 'ไม่สามารถระบุตำแหน่งได้';
+                locationText.innerText = '✗ ไม่สามารถระบุตำแหน่ง';
+                console.warn('Geolocation error:', error);
+            }
+
+            // Prepare Payload for Google Sheets
             const payload = {
-                firstname: document.getElementById('firstname').value,
-                lastname: document.getElementById('lastname').value,
-                department: document.getElementById('department').value,
-                location: locationText,
-                timestamp: checkInTime
+                firstname: firstname,
+                lastname: lastname,
+                department: department,
+                timestamp: checkInTime,
+                latitude: locationData ? locationData.lat : null,
+                longitude: locationData ? locationData.lng : null,
+                accuracy: locationData ? locationData.accuracy : null,
+                locationError: locationError
             };
 
             try {
+                // Send to Google Apps Script
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -158,15 +249,45 @@
                     body: JSON.stringify(payload)
                 });
 
-                const msg = `ท่านได้ลงเวลาปฏิบัติราชการแล้ว ณ ${checkInTime}\n\nโดยท่านอยู่ ณ ${locationText}`;
+                // Build Success Message
+                let msg = `ท่านได้ลงเวลาปฏิบัติราชการแล้ว ณ ${checkInTime}\n\n`;
+                
+                if (locationData) {
+                    msg += `📍 พิกัดตำแหน่งของคุณ:\n`;
+                    msg += `ละติจูด: ${locationData.lat.toFixed(6)}°\n`;
+                    msg += `ลองจิจูด: ${locationData.lng.toFixed(6)}°\n`;
+                    msg += `ความแม่นยำ: ±${Math.round(locationData.accuracy)} เมตร`;
+                } else {
+                    msg += `📍 ไม่สามารถระบุตำแหน่งได้ (${locationError || 'ผู้ใช้ปฏิเสธการเข้าถึง'})`;
+                }
+
+                // Display Result
                 document.getElementById('successMessage').innerText = msg;
                 
+                // Display Coordinates in Box
+                if (locationData) {
+                    document.getElementById('latValue').innerText = locationData.lat.toFixed(6) + '°';
+                    document.getElementById('lngValue').innerText = locationData.lng.toFixed(6) + '°';
+                    document.getElementById('accuracyValue').innerText = '±' + Math.round(locationData.accuracy) + ' เมตร';
+                    
+                    // Google Maps Link
+                    const mapsUrl = `https://www.google.com/maps?q=${locationData.lat},${locationData.lng}`;
+                    document.getElementById('mapsLink').href = mapsUrl;
+                    document.getElementById('mapsLink').classList.remove('hidden');
+                } else {
+                    document.getElementById('latValue').innerText = '-';
+                    document.getElementById('lngValue').innerText = '-';
+                    document.getElementById('accuracyValue').innerText = '-';
+                    document.getElementById('mapsLink').classList.add('hidden');
+                }
+                
+                // Show Result Area, Hide Form
                 document.getElementById('checkinForm').classList.add('hidden');
                 resultArea.classList.remove('hidden');
 
             } catch (error) {
-                console.error('Error:', error);
-                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
+                console.error('Submit error:', error);
+                alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาลองใหม่อีกครั้ง');
                 btn.disabled = false;
                 btn.classList.remove('opacity-75', 'cursor-not-allowed');
             } finally {
