@@ -150,7 +150,7 @@
 
     <script>
         // ⚠️ วางลิงก์ Web App URL ของคุณที่นี่
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRqCgvH2v3bj-ZbLMT4_VneEnY5pHdtPp2UoQlC5_3wb4AiDiynCV0ow-ujE4SZX7S/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzbx8VkpRJbk-JzARjpLFNA2fzSNxVH9Z1h5xe2pnjYnAUlnc_iFU4nG607D8FQ8pK/exec';
 
         // 1. Real-time Clock
         function updateClock() {
@@ -229,17 +229,30 @@
             }
 
             // Prepare Payload for Google Sheets
-            const payload = {
-                firstname: firstname,
-                lastname: lastname,
-                department: department,
-                timestamp: checkInTime,
-                latitude: locationData ? locationData.lat : null,
-                longitude: locationData ? locationData.lng : null,
-                accuracy: locationData ? locationData.accuracy : null,
-                locationError: locationError
-            };
-
+            // ส่วนนี้อยู่ในฟังก์ชัน submit ของฟอร์ม
+// ภายในฟังก์ชัน submit
+// ✅ แก้ไขส่วนนี้ในฟังก์ชัน submit
+const payload = {
+    timestamp: checkInTime,
+    firstname: document.getElementById('firstname').value,
+    lastname: document.getElementById('lastname').value,
+    department: document.getElementById('department').value,
+    
+    // 🎯 เปลี่ยนตรงนี้: ให้ location_name เป็นพิกัดแทน
+    location_name: locationData 
+        ? `${locationData.lat.toFixed(6)}, ${locationData.lng.toFixed(6)}` 
+        : 'ไม่สามารถระบุตำแหน่งได้',
+    
+    latitude: locationData ? locationData.lat : '',
+    longitude: locationData ? locationData.lng : '',
+    accuracy: locationData ? Math.round(locationData.accuracy) : '',
+    status: locationData ? 'success' : 'location_denied'
+};await fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+});
             try {
                 // Send to Google Apps Script
                 await fetch(GOOGLE_SCRIPT_URL, {
